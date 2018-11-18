@@ -1,0 +1,65 @@
+﻿@using WebApplication.Security.DataRepository.Models
+@model List<WebApplication.Security.DataRepository.Models.Invoice>
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>Search invoices</h2>
+		<ul>
+			<li>Choose a field you are going to search against</li>
+		</ul>
+	</div>
+	<div class="col-md-12">
+		<select id="invoice-fields">
+			<option value="Number">Number</option>
+			<option value="IssuedOn">Issued On</option>
+			<option value="Duedate">Due date</option>
+			<option value="TotalAmount">Total Amount</option>
+		</select>
+		<input id="search-value" type="text" />
+		<input id="search" type="button" value="Search" />
+		<br />
+		<span>Ex: " or "a"="a</span>
+	</div>
+</div>
+@if (Model.Count > 0)
+{
+	<table class="table">
+		<thead>
+		<tr>
+			<th scope="col">Owner</th>
+			<th scope="col">Number</th>
+			<th scope="col">Issued On</th>
+			<th scope="col">Due date</th>
+			<th scope="col">Total Amount</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var invoice in Model)
+		{
+			<tr>
+				<th scope="row">@invoice.User.Name</th>
+				<th>@invoice.Number</th>
+				<td>@invoice.IssuedOn</td>
+				<td>@invoice.Duedate</td>
+				<td>@invoice.TotalAmount</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+}
+
+@section ViewScript{ 
+	<script>
+		$(function() {
+			$("#search").click(function () {
+				debugger;
+				var column = $('#invoice-fields').val();
+				var value = $('#search-value').val();
+				window.location.href = '/home/search?column=' + column + "&value=" + value;
+			});
+		});
+	</script>
+}

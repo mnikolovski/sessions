@@ -1,0 +1,66 @@
+﻿@using WebApplication.Security.DataRepository.Models
+@model List<WebApplication.Security.DataRepository.Models.Comment>
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>Envoice now works with Square #workswithsquare</h2>
+	</div>
+	<div class="col-md-12">
+		Tailoring new features, expanding and improving the Enovice experience to our current and future users and firmly working on developing new partnerships are our team’s primary goals. And we are celebrating every small or big step towards achieving those goals.
+		That is why we are excited to share with you the news that recently we partner with Square to bring Envoice closer to Square users. This way everyone that are possessing payments through Square, can now create and send professional invoices and get paid online safe, secure and on time with Square.
+	</div>
+</div>
+<div class="row">
+	<textarea id="comment"></textarea>
+	<br/>
+	<input id="post-comment" type="button" value="Post comment"/>
+	<br/>
+	<pre>
+		Ex:
+		alert('you are done');
+		
+		body {
+			display: block; 
+			-webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+			-moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+			-o-transform: matrix(-1, 0, 0, 1, 0, 0);
+			transform: matrix(-1, 0, 0, 1, 0, 0);
+		}
+	</pre>
+</div>
+@if (Model.Count > 0)
+{
+	<table class="table">
+		<thead>
+		<tr>
+			<th scope="col">Comment</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var comment in Model)
+		{
+			<tr>
+				<th scope="row">@Html.Raw(comment.Value)</th>
+			</tr>
+		}
+		</tbody>
+	</table>
+}
+
+@section ViewScript{ 
+	<script>
+		$(function() {
+			$("#post-comment").click(function () {
+				var value = $('#comment').val();
+				var comment = {
+					Value: value
+				};
+				// add comment
+				$.post('/Comment/new', comment);
+			});
+		});
+	</script>
+}
